@@ -10,24 +10,12 @@ st.write("Ini merupakan platform untuk membantu kamu dalam mempersiapkan diri da
 st.write("Kami menyediakan berbagai informasi dan sumber daya yang dapat membantu kamu dalam mencapai tujuan tersebut.")
 
 st.write("Kamu rencana mau ke negara mana nih?")
-st.button("Jepang")
-st.button("Korea Selatan")
-st.button("Jerman")
-st.button("Belanda")
-st.button("Prancis")
-st.button("Inggris")
-st.button("Amerika Serikat")
-st.button("Australia")
-st.button("Kanada")
-st.button("New Zealand")
-st.button("Singapura")
-st.button("Malaysia")
-st.button("Thailand")
-st.button("Filipina")
-st.button("Vietnam")
-st.button("Brunei Darussalam")
-st.button("Laos")
-st.button("Kamboja")
-st.button("Myanmar")
-st.button("Mongolia")
-st.button("Taiwan")
+
+if "history" not in st.session_state:
+    st.session_state.history = []
+
+negara_tujuan = st.text_input("Masukkan negara tujuan:")
+
+if negara_tujuan:
+    st.session_state.history.append(negara_tujuan)
+st.write(st.session_state.history)
