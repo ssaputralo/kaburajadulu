@@ -18,15 +18,26 @@ def save_history(history):
     with open(HISTORY_FILE, "w") as file:
         json.dump(history, file)
 
-# Load histori dari file ke session_state hanya jika belum ada
+# Load histori dari file ke session_state
 if "history" not in st.session_state:
     st.session_state.history = load_history()
 
-# Sidebar
+# Sidebar Navigation
 with st.sidebar:
-    st.title("Sidebar")
-    st.write("This is the sidebar content.")
-    st.button("Click me!")
+    st.title("Home")
+    
+    # Navigasi halaman
+    st.page_link("home.py", label="Home")
+    st.page_link("pages/foreignlanguages.py", label="Foreign Languages")
+    st.page_link("pages/studyabroad.py", label="Study Abroad")
+    st.page_link("pages/workabroad.py", label="Work Abroad")
+    st.page_link("pages/lifeabroad.py", label="Life Abroad")
+
+    st.markdown("---")
+    st.markdown("**Let's connect!**")
+    st.markdown("[➤ Twitter](https://twitter.com)")
+    st.markdown("[in LinkedIn](https://linkedin.com)")
+    st.markdown("[Lab](https://gptlab.streamlit.app/lab)")
 
 # Main content
 st.title("#KaburAjaDulu")
@@ -38,22 +49,22 @@ st.write("Kamu rencana mau ke negara mana nih?")
 # Input negara tujuan
 negara_tujuan = st.text_input("Masukkan negara tujuan:")
 
-# Tambahkan input ke histori jika ada input baru
+# Tambahkan input ke histori
 if negara_tujuan:
     st.session_state.history.append(negara_tujuan)
-    save_history(st.session_state.history)  # Simpan histori ke file
+    save_history(st.session_state.history)
 
-# Hitung frekuensi setiap negara tujuan
+# Hitung frekuensi negara tujuan
 histori_counter = Counter(st.session_state.history)
 
-# Tampilkan histori dalam bentuk tabel
+# Tampilkan histori
 st.write("### Histori negara tujuan:")
 filter_option = st.selectbox("Urutkan berdasarkan:", ["Tidak diurutkan", "Jumlah Terkecil", "Jumlah Terbesar"])
 
-# Konversi data ke bentuk tabel
+# Konversi ke tabel
 histori_table = [{"Negara": negara, "Jumlah": count} for negara, count in histori_counter.items()]
 
-# Terapkan filter
+# Filter data
 if filter_option == "Jumlah Terkecil":
     histori_table = sorted(histori_table, key=lambda x: x["Jumlah"])
 elif filter_option == "Jumlah Terbesar":
